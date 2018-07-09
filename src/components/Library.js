@@ -20,7 +20,7 @@ class Library extends Component { constructor(props) { super(props); this.state 
               <img src={album.albumCover} alt={album.title} />
               <div>{album.title}</div>
               <div>{album.artist}</div>
-              <td>{album.songs}</td>
+
               <div>{album.songs.length} songs</div>
 
 
