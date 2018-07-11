@@ -1,38 +1,37 @@
+
 import React, { Component } from 'react';
-import albumData from './../data/albums';
+ import albumData from './../data/albums.js';
+
 
 class Album extends Component {
-   constructor(props) {
-     super(props);
+  constructor(props) {
+  super(props);
 
+    const album = albumData.find( album => {
+      return album.slug === this.props.match.params.slug
+    });
 
-
-      const album = albumData.find( album => {
-        return album.slug === this.props.match.params.slug
-      });
-
-      this.state = {
-        album: album
-      };
+    this.state = {
+      album: album
+    };
 }
 
-render() {
-   return (
-     <section className="album">
-       <section id="album-info">
-         <img id="album-cover-art" src={this.state.album.albumCover} alt={this.state.album.title}/>
-         <div className="album-details">
-            <h1 id="album-title">{this.state.album.title}</h1>
-            <h2 className="artist">{this.state.album.artist}</h2>
+  render() {
+    return (
+      <section className="album">
+      <section id="album-info">
+        <img id="album-cover-art" src={this.state.album.albumCover} alt={this.state.album.title}/>
+        <div className="album-details">
+        <h1 id="album-title">{this.state.album.title}</h1>
+        <h2 className="artist">{this.state.album.artist}</h2>
+        <div id="release-info">{this.state.album.releaseInfo}</div>
 
-            <div id="release-info">{this.state.album.releaseInfo}</div>
-
-         </div>
-       </section>
+        </div>
 
 
 
-       <table id="song-list">
+      </section>
+      <table id="song-list">
         <colgroup>
           <col id="song-number-column" />
           <col id="song-title-column" />
@@ -41,20 +40,24 @@ render() {
         <tbody>
 
 
-            <td id = "song-title" > this.state.albums.songs</td>
+        {this.state.album.songs.map((val, index) =>{
+          return <tr key={index}>
+
+          <td>{index+ 1}</td>
+          <td> {val.title}</td>
+          <td> {val.duration} </td>
+
+          </tr>
+          })}
+
+
 
         </tbody>
       </table>
-     </section>
-   );
- }
+      </section>
+    );
+  }
 }
-
-//toggleComplete(index); {
-  //const songs = this.state.albums.songs.slice();
-//  const song = songs[index];
-  //  this.setState({ songs: songs });
-//  console.log("Testing index array number:  " + index);
-//}
-
+//          <col id="song-title-column">Song Title </col id>
+  //        <col id="song-duration-column>"Song Duration </col id>
 export default Album;
