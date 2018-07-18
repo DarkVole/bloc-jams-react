@@ -42,15 +42,15 @@ pause() {
   this.setState({ isPlaying: false });
 }
 
-  handleSongClick(song) {
-    const isSameSong = this.state.currentSong === song;
-    if (this.state.isPlaying && isSameSong) {
-      this.pause();
-    } else {
-      if (!isSameSong) { this.setSong(song); }
-      this.play();
-    }
-  }
+  //handleSongClick(song) {
+ //   const isSameSong = this.state.currentSong === song;
+  //  if (this.state.isPlaying && isSameSong) {
+ //     this.pause();
+ //   } else {
+  //    if (!isSameSong) { this.setSong(song); }
+ //     this.play();
+ //   }
+ // }
 
   setHoveringSong(song) {
     this.setState({ nowHoverSong: song });
