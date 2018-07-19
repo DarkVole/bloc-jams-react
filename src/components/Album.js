@@ -1,7 +1,7 @@
 
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
  import albumData from './../data/albums.js';
-
+ import PlayerBar from './PlayerBar';
 
 
 
@@ -16,6 +16,7 @@ class Album extends Component {
     this.state = {
       album: album,
       currentSong: album.songs[0],
+ 
 
       isPlaying: false,
       isHovering: 0,
@@ -33,7 +34,6 @@ class Album extends Component {
 play() {
   this.audioElement.play();
   this.setState({ isPlaying: true });
-
 }
 
 
@@ -42,15 +42,6 @@ pause() {
   this.setState({ isPlaying: false });
 }
 
-  //handleSongClick(song) {
- //   const isSameSong = this.state.currentSong === song;
-  //  if (this.state.isPlaying && isSameSong) {
- //     this.pause();
- //   } else {
-  //    if (!isSameSong) { this.setSong(song); }
- //     this.play();
- //   }
- // }
 
   setHoveringSong(song) {
     this.setState({ nowHoverSong: song });
@@ -63,7 +54,7 @@ pause() {
 
 
   showButtons(song, index) {
-    console.log("showButtonsCalled")
+    //console.log("showButtonsCalled")
      if (this.state.nowHoverSong === song || (this.state.isPlaying === false && this.state.nowHoverSong === song)) {
       return  <span className="icon ion-md-play-circle"></span>;
     } else if (this.state.isPlaying === true && this.state.currentSong === song) {
@@ -77,7 +68,7 @@ pause() {
 
 
   hideButtons(song, index) {
-    console.log("hideButtons called")
+    //console.log("hideButtons called")
     if (!this.state.nowHoverSong === song)
     return index + 1;
   }
@@ -96,13 +87,28 @@ handleSongClick(song) {
 } else {
   if (!isSameSong) { this.setSong(song); }
   this.play();
-
  ;
 }
 }
 
 
 
+    handlePrevClick() {
+      const currentIndex = this.state.album.songs.findIndex(song => this.state.currentSong === song);
+      const newIndex = Math.max(0, currentIndex - 1);
+      const newSong = this.state.album.songs[newIndex];
+      this.setSong(newSong);
+      this.play();
+    }
+
+    handleNextClick() {
+      const currentIndex = this.state.album.songs.findIndex(song => this.state.currentSong === song);
+      const newIndex = Math.min(this.state.album.songs.length, currentIndex + 1);
+
+      const newSong = this.state.album.songs[newIndex];
+      this.setSong(newSong);
+      this.play();
+    }
 
   render() {
     return (
@@ -139,6 +145,13 @@ handleSongClick(song) {
               }
               </tbody>
             </table>
+         <PlayerBar
+           isPlaying={this.state.isPlaying}
+           currentSong={this.state.currentSong}
+           handleSongClick={() => this.handleSongClick(this.state.currentSong)}
+           handlePrevClick={() => this.handlePrevClick()}
+           handleNextClick={() => this.handleNextClick()}
+         />
       </section>
     );
   }
