@@ -16,20 +16,38 @@ class Album extends Component {
     this.state = {
       album: album,
       currentSong: album.songs[0],
- 
-
+      currentTime: 0,
+      duration: album.songs[0].duration, 
       isPlaying: false,
       isHovering: 0,
       nowHoverSong: null
     };
 
-//console.log(this.state.audioState[0]);
+
 
     this.audioElement = document.createElement('audio');
     this.audioElement.src = album.songs[0].audioSrc;
-   // this.hoverOverIt = this.hoverOverIt.bind(this);
-  //  this.hoverOffIt = this.hoverOffIt.bind(this);
 }
+
+   componentDidMount() {
+     this.eventListeners = {
+       timeupdate: e => {
+         this.setState({ currentTime: this.audioElement.currentTime });
+       },
+       durationchange: e => {
+         this.setState({ duration: this.audioElement.duration });
+       }
+     };
+     this.audioElement.addEventListener('timeupdate', this.eventListeners.timeupdate);
+     this.audioElement.addEventListener('durationchange', this.eventListeners.durationchange);
+   }
+
+   componentWillUnmount() {
+     this.audioElement.src = null;
+     this.audioElement.removeEventListener('timeupdate', this.eventListeners.timeupdate);
+     this.audioElement.removeEventListener('durationchange', this.eventListeners.durationchange);
+   }
+  
 
 play() {
   this.audioElement.play();
@@ -91,6 +109,12 @@ handleSongClick(song) {
 }
 }
 
+   handleTimeChange(e) {
+     const newTime = this.audioElement.duration * e.target.value;
+     this.audioElement.currentTime = newTime;
+     this.setState({ currentTime: newTime });
+   }
+ 
 
 
     handlePrevClick() {
@@ -103,7 +127,7 @@ handleSongClick(song) {
 
     handleNextClick() {
       const currentIndex = this.state.album.songs.findIndex(song => this.state.currentSong === song);
-      const newIndex = Math.min(this.state.album.songs.length, currentIndex + 1);
+      const newIndex = Math.min(this.state.album.songs.length-1, currentIndex + 1);
 
       const newSong = this.state.album.songs[newIndex];
       this.setSong(newSong);
@@ -149,8 +173,11 @@ handleSongClick(song) {
            isPlaying={this.state.isPlaying}
            currentSong={this.state.currentSong}
            handleSongClick={() => this.handleSongClick(this.state.currentSong)}
+           currentTime={this.audioElement.currentTime}
+           duration={this.audioElement.duration}
            handlePrevClick={() => this.handlePrevClick()}
            handleNextClick={() => this.handleNextClick()}
+           handleTimeChange={(e) => this.handleTimeChange(e)}
          />
       </section>
     );
