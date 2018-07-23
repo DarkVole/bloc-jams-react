@@ -21,7 +21,10 @@ class Album extends Component {
       isPlaying: false,
       currentVolume: 40,
       isHovering: 0,
-      nowHoverSong: null
+      nowHoverSong: null,
+      durationPrettyTime: "-:--",
+      stringTime: "",
+      stringCurrentTime: ""
     };
 
 
@@ -88,6 +91,30 @@ pause() {
     }
   }
 
+ formatTime(xTime) {
+  var fail = "-:--";
+  var xSeconds = xTime % 60;
+  var fSeconds = xSeconds.toFixed();
+  var sSeconds = fSeconds.toString();
+  var xMinutes = Math.round((xTime / 60) -.5);
+  var sMinutes = xMinutes.toString();
+  if (xMinutes < 1) { sMinutes = "0:";}
+  if (xTime < 10) { sSeconds = "0"+ sSeconds};
+
+if (isNaN(xSeconds)) {
+   return fail;
+
+  } else if 
+   (isNaN(xMinutes)) {
+    return fail;
+  }
+
+  var xHash = ":";
+  var xBoth = xMinutes + xHash + sSeconds;
+ // console.log(xBoth);
+
+return xBoth
+}
 
 
 
@@ -115,17 +142,18 @@ handleSongClick(song) {
 }
 }
    handleVolumeChange(e) {
-     const newVolume = this.audioElement.volume * e.target.value;
+     const newVolume = e.target.value;
      //const newVolume = 0;
-     this.audioElement.currentVolume = newVolume;
-     this.setState({ currentVolume: newVolume });
-     console.log(this.state.currentVolume)
+     this.audioElement.volume = newVolume;
+     this.setState({ volume: newVolume });
+     console.log(this.state.volume)
    }
 
    handleTimeChange(e) {
      const newTime = this.audioElement.duration * e.target.value;
      this.audioElement.currentTime = newTime;
      this.setState({ currentTime: newTime });
+
    }
  
 
@@ -173,9 +201,11 @@ handleSongClick(song) {
               {
                 this.state.album.songs.map( (song, index) =>
                <tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
-                <td onMouseEnter={() => this.setHoveringSong(song)} onMouseLeave={ () => this.setNotHoveringSong(song)}>{this.showButtons(song, index)} {this.hideButtons(song, index)}</td>
+                <td onMouseEnter={() => this.setHoveringSong(song)} 
+                onMouseLeave={ () => this.setNotHoveringSong(song)}>{this.showButtons(song, index)}
+                {this.hideButtons(song, index)} </td>
                 <td>{song.title}</td>
-                <td>{song.duration}</td>
+                <td>{this.formatTime(song.duration)}</td>
                </tr>
 
             )
@@ -185,11 +215,13 @@ handleSongClick(song) {
          <PlayerBar
            isPlaying={this.state.isPlaying}
            currentSong={this.state.currentSong}
+           stringTime = {this.formatTime(this.audioElement.duration)}
+           stringCurrentTime = {this.formatTime(this.audioElement.currentTime)}
            handleSongClick={() => this.handleSongClick(this.state.currentSong)}
            currentTime={this.audioElement.currentTime}
            duration={this.audioElement.duration}
            volume = {this.audioElement.volume}
-           currentVolume={this.audioElement.currentVolume}
+           currentVolume={this.audioElement.volume}
            handlePrevClick={() => this.handlePrevClick()}
            handleNextClick={() => this.handleNextClick()}
            handleTimeChange={(e) => this.handleTimeChange(e)}
