@@ -185,7 +185,7 @@ handleSongClick(song) {
         <h1 id="album-title">{this.state.album.title}</h1>
         <h2 className="artist">{this.state.album.artist}</h2>
         <div id="release-info">{this.state.album.releaseInfo}</div>
-        <i className="icon ion-md-play-circle"></i>
+
         </div>
 
 
