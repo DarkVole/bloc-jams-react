@@ -50,8 +50,11 @@
           />
            <div className="icon ion-md-volume-high"></div>
 
+
+
          </section>
        </section>
+
      );
    }
  }

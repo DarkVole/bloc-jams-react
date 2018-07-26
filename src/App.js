@@ -10,13 +10,35 @@ class App extends Component {
     return (
       <div className="App">
       <header>
+
       <nav>
-  <Link to='/'>Landing</Link>
-  <Link to='/library'>Library</Link>
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" 
+integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" 
+crossorigin="anonymous"></link>
+
+
+
+
 </nav>
-        <h1>Bloc Jams</h1>
+<div class="jumbotron text-center">
+  <h1>Bloc Jams </h1>
+<div class="btn-group btn-group-justified ">
+  <a href="#" class="btn btn-primary"><Link to='/'><strong><font color = "white">Landing</font></strong></Link></a>
+  <a href="#" class="btn btn-primary"><Link to='/library'><strong><font color = "white">Library</font></strong></Link></a>
+  <a href="#" class="btn btn-primary disabled">About</a>
+ 
+</div>
+
+
+  </div>
+
+
       </header>
       <main>
+
+
         <Route exact path="/" component={Landing} />
         <Route path="/library" component={Library} />
 
