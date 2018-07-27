@@ -23,7 +23,7 @@
            <div className="current-time">{this.props.stringCurrentTime}</div>
            <input 
              type="range" 
-             className="seek-bar" 
+             className="slider slider-width00" 
              value={(this.props.currentTime / this.props.duration) || 0} 
              max="1" 
              min="0" 

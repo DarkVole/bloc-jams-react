@@ -3,7 +3,6 @@
  import albumData from './../data/albums.js';
  import PlayerBar from './PlayerBar';
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></link>
 
 
 
@@ -208,7 +207,7 @@ handleSongClick(song) {
                 <col id="song-duration-column" />
               </colgroup>
 
-              <tbody class="table text-center">
+              <tbody class="table text-right">
 
               {
                 this.state.album.songs.map( (song, index) =>
@@ -219,7 +218,7 @@ handleSongClick(song) {
                 {this.hideButtons(song, index)} </td>
                 <td class = "col-sm-1 text-center">{song.title}</td>
                 <td class = "col-sm-1 text-center">{this.formatTime(song.duration)}</td>
-                                <td class = "col-sm-8 text-center">Hello</td>
+
                </tr>
 
 
