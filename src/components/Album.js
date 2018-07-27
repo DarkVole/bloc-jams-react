@@ -200,24 +200,31 @@ handleSongClick(song) {
 <div class="container text-left">
   <div class="table-responsive-md text-left">
 
-            <table id="song-list text-center">
-              <colgroup>
-                <col id="song-number-column" />
-                <col id="song-title-column" />
-                <col id="song-duration-column" />
-              </colgroup>
+             <table id="song-list r">
+               <colgroup>
+                 <col id="song-number-column" />
+                 <col id="song-title-column" />
+                 <col id="song-duration-column" />
+               </colgroup>
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Song</th>
+          <th scope="col">Duration</th>
 
-              <tbody class="table text-right">
+        </tr>
+      </thead>
+              <tbody class="table text-left">
 
               {
                 this.state.album.songs.map( (song, index) =>
-               <tr class= "row col-sm-12 text-center" className="song" key={index} onClick={() => this.handleSongClick(song)} >
-                <td class = "col-sm-1 text-center"></td>
-                <td class = "col-sm-1 text-center" onMouseEnter={() => this.setHoveringSong(song)} 
+               <tr class= "" className="song" key={index} onClick={() => this.handleSongClick(song)} >
+ 
+                <td class = "" onMouseEnter={() => this.setHoveringSong(song)} 
                 onMouseLeave={ () => this.setNotHoveringSong(song)}>{this.showButtons(song, index)}
                 {this.hideButtons(song, index)} </td>
-                <td class = "col-sm-1 text-center">{song.title}</td>
-                <td class = "col-sm-1 text-center">{this.formatTime(song.duration)}</td>
+                <td class = "">{song.title}</td>
+                <td class = "">{this.formatTime(song.duration)}</td>
 
                </tr>
 
@@ -227,8 +234,12 @@ handleSongClick(song) {
               }
               </tbody>
             </table>
+                <div class="container text-center">
+      &nbsp;
+    </div>
              </div>
              </div>
+
 
 
 
