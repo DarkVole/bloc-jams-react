@@ -5,6 +5,7 @@
 
 
 
+
 class Album extends Component {
   constructor(props) {
   super(props);
@@ -24,7 +25,8 @@ class Album extends Component {
       nowHoverSong: null,
       durationPrettyTime: "-:--",
       stringTime: "",
-      stringCurrentTime: ""
+      stringCurrentTime: "",
+      stringBlank:  "Hello"
     };
 
 
@@ -179,39 +181,61 @@ handleSongClick(song) {
     return (
       <section className="album">
       <section id="album-info">
-        
-        <img id="album-cover-art" src={this.state.album.albumCover} alt={this.state.album.title}/>
+        <div class="container text-center">
+        <img class = "img-rounded" id="album-cover-art" src={this.state.album.albumCover} alt={this.state.album.title}/>
         <div className="album-details">
-        <h1 id="album-title">{this.state.album.title}</h1>
+        <h3 id="album-title">{this.state.album.title}</h3>
         <h2 className="artist">{this.state.album.artist}</h2>
         <div id="release-info">{this.state.album.releaseInfo}</div>
 
+
+
+
+    </div>
         </div>
 
 
 
             </section>
-            <table id="song-list">
+<div class="container text-left">
+  <div class="table-responsive-md text-left">
+
+            <table id="song-list text-center">
               <colgroup>
                 <col id="song-number-column" />
                 <col id="song-title-column" />
                 <col id="song-duration-column" />
               </colgroup>
-              <tbody>
+
+              <tbody class="table text-right">
+
               {
                 this.state.album.songs.map( (song, index) =>
-               <tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
-                <td onMouseEnter={() => this.setHoveringSong(song)} 
+               <tr class= "row col-sm-12 text-center" className="song" key={index} onClick={() => this.handleSongClick(song)} >
+                <td class = "col-sm-1 text-center"></td>
+                <td class = "col-sm-1 text-center" onMouseEnter={() => this.setHoveringSong(song)} 
                 onMouseLeave={ () => this.setNotHoveringSong(song)}>{this.showButtons(song, index)}
                 {this.hideButtons(song, index)} </td>
-                <td>{song.title}</td>
-                <td>{this.formatTime(song.duration)}</td>
+                <td class = "col-sm-1 text-center">{song.title}</td>
+                <td class = "col-sm-1 text-center">{this.formatTime(song.duration)}</td>
+
                </tr>
+
+
 
             )
               }
               </tbody>
             </table>
+             </div>
+             </div>
+
+
+
+
+
+             
+
          <PlayerBar
            isPlaying={this.state.isPlaying}
            currentSong={this.state.currentSong}
@@ -228,6 +252,7 @@ handleSongClick(song) {
            handleVolumeChange={(e) => this.handleVolumeChange(e)}           
          />
       </section>
+
     );
   }
 }
