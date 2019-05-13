@@ -93,6 +93,8 @@ pause() {
     }
   }
 
+
+
  formatTime(xTime) {
   var fail = "-:--";
   var xSeconds = xTime % 60;

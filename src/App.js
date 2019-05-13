@@ -27,7 +27,7 @@ crossorigin="anonymous"></link>
 <div class="btn-group btn-group-justified ">
   <a href="#" class="btn btn-primary"><Link to='/'><strong><font color = "white">Landing</font></strong></Link></a>
   <a href="#" class="btn btn-primary"><Link to='/library'><strong><font color = "white">Library</font></strong></Link></a>
-  <a href="#" class="btn btn-primary disabled">About</a>
+
  
 </div>
 
